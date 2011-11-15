@@ -10,12 +10,8 @@
   URL: http://code.google.com/p/html5slides/
 */
 
-// var PERMANENT_URL_PREFIX = '/home/geohacker/Projects/Latex-Workshop/slides/';
-var PERMANENT_URL_PREFIX = 'http://sajjad.in/content/slides/';
 var SLIDE_CLASSES = ['far-past', 'past', 'current', 'next', 'far-next'];
-
 var PM_TOUCH_SENSITIVITY = 15;
-
 var curSlide;
 
 /* ---------------------------------------------------------------------- */
@@ -525,50 +521,6 @@ function addEventListeners() {
 
 /* Initialization */
 
-function addPrettify() {
-  var els = document.querySelectorAll('pre');
-  for (var i = 0, el; el = els[i]; i++) {
-    if (!el.classList.contains('noprettyprint')) {
-      el.classList.add('prettyprint');
-    }
-  }
-  
-  var el = document.createElement('script');
-  el.type = 'text/javascript';
-  el.src = PERMANENT_URL_PREFIX + 'prettify.js';
-  el.onload = function() {
-    prettyPrint();
-  }
-  document.body.appendChild(el);
-};
-
-function addFontStyle() {
-  var el = document.createElement('link');
-  el.rel = 'stylesheet';
-  el.type = 'text/css';
-  el.href = PERMANENT_URL_PREFIX + 'font';
-
-  document.body.appendChild(el);
-};
-
-function addGeneralStyle() {
-  var el = document.createElement('link');
-  el.rel = 'stylesheet';
-  el.type = 'text/css';
-  el.href = PERMANENT_URL_PREFIX + 'styles.css';
-  document.body.appendChild(el);
-  
-  var el = document.createElement('meta');
-  el.name = 'viewport';
-  el.content = 'width=1100,height=750';
-  document.querySelector('head').appendChild(el);
-  
-  var el = document.createElement('meta');
-  el.name = 'apple-mobile-web-app-capable';
-  el.content = 'yes';
-  document.querySelector('head').appendChild(el);
-};
-
 function makeBuildLists() {
   for (var i = curSlide, slide; slide = slideEls[i]; i++) {
     var items = slide.querySelectorAll('.build > *');
@@ -584,10 +536,6 @@ function handleDomLoaded() {
   slideEls = document.querySelectorAll('section.slides > article');
 
   setupFrames();
-
-  addFontStyle();
-  addGeneralStyle();
-  addPrettify();
   addEventListeners();
 
   updateSlides();
@@ -602,7 +550,6 @@ function initialize() {
   getCurSlideFromHash();
 
   if (window['_DEBUG']) {
-    PERMANENT_URL_PREFIX = '../';
   }
 
   if (window['_DCL']) {
